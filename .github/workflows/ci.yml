@@ -3,37 +3,38 @@ name: Node.js CI/CD
 on:
   push:
     branches:
-      - main
+      - main  # Trigger on push to main branch
   pull_request:
     branches:
-      - main
+      - main  # Trigger on pull requests to main branch
 
 jobs:
-  build:
+  test-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v3  # Check out your repository code
 
     - name: Set up Node.js
       uses: actions/setup-node@v3
       with:
-        node-version: '20'  # or use a version like '14' or '18'
+        node-version: '20'  # Specify the Node.js version you're using (e.g., 20, 18, etc.)
 
     - name: Install dependencies
       run: |
-        npm install
+        npm install  # Install all project dependencies
 
     - name: Run tests
       run: |
-        npm test
-
-    - name: Build the application
-      run: |
-        npm run build  # Ensure your `build` script is defined in package.json
+        npm test  # Run your tests (ensure you have a test script in your package.json)
 
     - name: Deploy (example for deployment)
       run: |
-        echo "Deploying the app..."  # Replace this with your actual deployment steps
-        # Example: AWS CLI, Heroku CLI, etc.
+        echo "Deploying the app..."  # Replace with actual deployment steps
+        # Example deployment steps for platforms like AWS, Heroku, etc.
+        # If you're deploying to Heroku, it might look something like:
+        # heroku deploy:jar
+        # If using AWS CLI, it might look like:
+        # aws deploy create-deployment --application-name <name> --deployment-group <group>
+        # Customize this based on your actual deployment process.
