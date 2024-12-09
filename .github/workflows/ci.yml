@@ -1,0 +1,39 @@
+name: Node.js CI/CD
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '20'  # or use a version like '14' or '18'
+
+    - name: Install dependencies
+      run: |
+        npm install
+
+    - name: Run tests
+      run: |
+        npm test
+
+    - name: Build the application
+      run: |
+        npm run build  # Ensure your `build` script is defined in package.json
+
+    - name: Deploy (example for deployment)
+      run: |
+        echo "Deploying the app..."  # Replace this with your actual deployment steps
+        # Example: AWS CLI, Heroku CLI, etc.
